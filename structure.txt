@@ -1,0 +1,8 @@
+FastAPIProject1/
+    src/
+        site/
+            crud.py
+            main.py
+            ...
+        bot/
+        parsers/
