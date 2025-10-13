@@ -36,7 +36,9 @@ async def get_user_if_exist(tg_id: int) -> bool:
 
     try:
         async with aiohttp.ClientSession() as session:
-            async with session.get(API_LINK, params=params, timeout=30) as response:
+            async with session.get(
+                f"http://localhost/api/v1/users/{tg_id}", params=params, timeout=30
+            ) as response:
 
                 if response.status == 200:
 

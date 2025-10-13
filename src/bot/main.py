@@ -1,11 +1,12 @@
 import asyncio
 import os
 from aiogram import Bot, Dispatcher, types
-
+from dotenv import load_dotenv
 from bot.my_requests import make_post_request, get_user_if_exist
 
-
-BOT_TOKEN = "8431808507:AAFy-cJ6eWAZ6NB4-6u8PuTHnVUGB_jbrUs"
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+print(BOT_TOKEN, "<<<<<<<<<<<<<")
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
