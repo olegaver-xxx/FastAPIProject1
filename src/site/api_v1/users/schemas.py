@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import BaseModel, ConfigDict
 
 
@@ -13,3 +15,4 @@ class UserCreate(UserBase):
 class User(UserBase):
     model_config = ConfigDict(from_attributes=True)
     id: int
+    resources_ids: List[int]
