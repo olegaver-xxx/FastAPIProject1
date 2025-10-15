@@ -1,8 +1,12 @@
+from typing import List
+
 from pydantic import BaseModel
+
+# from src.site.api_v1.users.schemas import User
 
 
 class ResourceBase(BaseModel):
-    name: str
+    res_name: str
 
 
 class ResourceCreate(ResourceBase):
@@ -14,3 +18,7 @@ class Resource(ResourceBase):
 
     class Config:
         orm_mode = True
+
+
+# class ResourceSchema(Resource):
+#     users: List[User]
