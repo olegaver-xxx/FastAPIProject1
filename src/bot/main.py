@@ -1,18 +1,17 @@
 import asyncio
 import os
+import logging
 from aiogram import Bot, Dispatcher, types
 from dotenv import load_dotenv
-from bot.my_requests import make_post_request, get_user_if_exist
+import keyboards as kb
+from bot.my_requests import get_user_if_exist, make_post_request
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-print(BOT_TOKEN, "<<<<<<<<<<<<<")
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-
-async def main():
-    await dp.start_polling(bot)
+dp.include_router(kb.router)
 
 
 @dp.message()
@@ -29,6 +28,10 @@ async def send_user_data(message: types.Message):
         print(f"{username} already exists")
     else:
         await make_post_request(username, user_id)
+
+async def main():
+    logging.basicConfig(level=logging.INFO)
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":

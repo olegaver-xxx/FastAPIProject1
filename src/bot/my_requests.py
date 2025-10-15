@@ -1,8 +1,11 @@
+import json
 import logging
 
 import aiohttp
 import asyncio
 from typing import Dict, Any
+
+from aiohttp.abc import HTTPException
 
 API_LINK = "http://localhost:8000/api/v1/users"
 
@@ -64,3 +67,30 @@ async def get_user_if_exist(tg_id: int) -> bool:
     except Exception as e:
         logger.error(f"Неожиданная ошибка при проверке пользователя {tg_id}: {e}")
         return False
+
+
+async def get_res_list() -> dict | None:
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                "http://localhost:8000/api/v1/resources", timeout=30
+            ) as response:
+
+                if response.status == 200:
+                    data = await response.json()
+                    print(data, type(data))
+                    return data
+
+                elif response.status == 404:
+                    logger.info("Не найдено")
+
+                elif response.status == 500:
+                    logger.info("Сервак сломался")
+
+                else:
+                    error_text = await response.text()
+                    logger.error(f"Ошибка сервера {response.status}: {error_text}")
+                    return None
+
+    except HTTPException as e:
+        logger.error(f"HTTPException: {e}")
