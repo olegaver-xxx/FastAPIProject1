@@ -5,3 +5,5 @@ from sqlalchemy.orm import relationship, mapped_column, Mapped
 class User(Base):
     tg_id: Mapped[int]
     username: Mapped[str] = mapped_column(nullable=True)
+    is_admin: Mapped[bool] = mapped_column(default=False, nullable=True)
+    password: Mapped[str] = mapped_column(nullable=True)
