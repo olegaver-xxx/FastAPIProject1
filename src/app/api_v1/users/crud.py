@@ -1,8 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.engine import Result
+
+from .exceptions import UserNotFoundError
 from .schemas import UserCreate
-from src.site.core.models import User, Resource
+from app.api_v1.users.models import User
 
 
 async def get_user(session: AsyncSession) -> list[User]:
@@ -12,8 +14,11 @@ async def get_user(session: AsyncSession) -> list[User]:
     return list(users)
 
 
-async def get_user_by_id(session: AsyncSession, id: int) -> User | None:
-    return await session.get(User, id)
+async def get_user_by_id(session: AsyncSession, user_id: int) -> User:
+    user = await session.get(User, user_id)
+    if not user:
+        raise UserNotFoundError
+    return user
 
 
 async def create_user(session: AsyncSession, user: UserCreate) -> User:
@@ -24,5 +29,10 @@ async def create_user(session: AsyncSession, user: UserCreate) -> User:
     return user
 
 
-async def get_user_by_tg_id(session: AsyncSession, tg_id: int) -> User | None:
-    return await session.get(User, tg_id)
+async def get_user_by_tg_id(session: AsyncSession, tg_id: int) -> User:
+    stm = select(User).where(User.tg_id==tg_id)
+    result: Result = await session.execute(stm)
+    user: User = result.scalars().first()
+    if not user:
+        raise UserNotFoundError
+    return user

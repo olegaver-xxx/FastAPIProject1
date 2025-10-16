@@ -1,23 +1,12 @@
 [project]
-name = "feedbot"
+name = "fastapiproject1"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "melkor"}
-]
-readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
-    "uvicorn (>=0.37.0,<0.38.0)",
-    "fastapi (>=0.118.3,<0.119.0)",
-    "aiogram (>=3.22.0,<4.0.0)",
-    "sqlalchemy[asyncio] (>=2.0.44,<3.0.0)",
-    "aiosqlite (>=0.21.0,<0.22.0)",
-    "pydantic-settings (>=2.11.0,<3.0.0)",
-    "python-dotenv (>=1.1.1,<2.0.0)"
+    "aiogram>=3.22.0",
+    "aiosqlite>=0.21.0",
+    "fastapi>=0.119.0",
+    "pydantic-settings>=2.11.0",
+    "sqlalchemy[asyncio]>=2.0.44",
+    "uvicorn>=0.37.0",
 ]
-
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
