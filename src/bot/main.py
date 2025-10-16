@@ -5,10 +5,10 @@ from aiogram import Bot, Dispatcher, types
 from dotenv import load_dotenv
 import keyboards as kb
 from bot.my_requests import get_user_if_exist, make_post_request
+from app.core.config import settings
 
 load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token=settings.bot_token)
 dp = Dispatcher()
 
 dp.include_router(kb.router)
